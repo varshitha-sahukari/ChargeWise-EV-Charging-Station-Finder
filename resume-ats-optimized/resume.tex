@@ -1,0 +1,211 @@
+%-------------------------
+% Resume in Latex
+% Author : Sahukari Varshitha
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+\pagestyle{fancy}
+\fancyhideall
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%############
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Sahukari Varshitha} \\ \vspace{1pt}
+    \small +91 9642919428 $|$ \href{mailto:svarshitha49@gmail.com}{\underline{svarshitha49@gmail.com}} $|$ 
+    \href{https://linkedin.com/in/sahukari-varshitha}{\underline{linkedin.com/in/sahukari-varshitha}} $|$ \\
+    \href{https://github.com/svarshitha49}{\underline{github.com/svarshitha49}} $|$
+    \href{https://leetcode.com/u/svarshitha49}{\underline{leetcode.com/u/svarshitha49}} $|$
+    \href{https://codeforces.com/profile/svarshitha49}{\underline{codeforces.com/svarshitha49}}
+\end{center}
+
+
+%-----------PROFESSIONAL SUMMARY-----------
+\section{Professional Summary}
+Results-driven Software Engineer and Data Science student with a strong foundation in full-stack development, database design, and microservices architecture. Proficient in Java, Python, SQL, and JavaScript, with hands-on experience building and deploying containerized, service-oriented backends. Experienced in designing distributed systems concepts (e.g., consistent hashing) and optimizing database queries. Strong problem-solving abilities backed by 250+ solved challenges on LeetCode and competitive programming experience.
+
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Java, Python, SQL, C, C++, JavaScript, TypeScript, HTML/CSS} \\
+     \textbf{Backend Development}{: Spring Boot, Spring Cloud, RESTful API Design, Microservices Architecture, Node.js, Express.js} \\
+     \textbf{Databases \& Modeling}{: MySQL, MongoDB, Relational Data Modeling, CRUD Design, Query Optimization, Transaction Management} \\
+     \textbf{DevOps \& Tools}{: Docker, Git, GitHub, Postman, Maven, VS Code, Linux} \\
+     \textbf{Frontend Development}{: React.js, Vite, Leaflet Maps, State Management} \\
+     \textbf{Core Concepts}{: Data Structures \& Algorithms, DBMS, Operating Systems, Computer Networks, Object-Oriented Programming (OOP)}
+    }}
+ \end{itemize}
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+
+      \resumeProjectHeading
+          {\textbf{ChargeWise – EV Charging Station Finder} $|$ \emph{React.js, Spring Boot, MySQL, Leaflet, REST APIs}}{}
+          \resumeItemListStart
+            \resumeItem{Designed a highly optimized relational MySQL schema and implemented 15+ RESTful API endpoints for station search, live availability tracking, and user profile management.}
+            \resumeItem{Engineered a Spring Boot backend service to handle real-time geospatial search queries, implementing spatial indexing to achieve sub-100ms response times for proximity-based filtering.}
+            \resumeItem{Integrated Leaflet Maps and custom geo-JSON layers on the React frontend, enabling interactive mapping and real-time visualization of 1,000+ EV charging stations.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{E-Commerce Microservices Platform} $|$ \emph{Spring Boot, Spring Cloud, MySQL, Docker, REST APIs}}{}
+          \resumeItemListStart
+            \resumeItem{Architected a decoupled e-commerce backend utilizing a microservices architecture, partitioning the application into 3 independently deployable services (Catalog, Orders, User Auth) with decentralized databases.}
+            \resumeItem{Engineered robust inter-service communication protocols using synchronous REST APIs and Netflix Eureka service discovery, improving system resilience and horizontal scalability.}
+            \resumeItem{Containerized microservices using Docker and Docker Compose, streamlining the local development workflow and reducing configuration/environment errors by 40\%.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{Consistent Hashing Visualizer} $|$ \emph{React.js, Vite, Java 17, Spring Boot, REST APIs}}{}
+          \resumeItemListStart
+            \resumeItem{Implemented a consistent hashing ring with virtual nodes in Java 17/Spring Boot to distribute keys uniformly, minimizing data redistribution by 85\% during node scaling.}
+            \resumeItem{Engineered an interactive React.js + Vite dashboard to visualize real-time key-to-node mapping and load-balancing dynamics on the hash ring.}
+            \resumeItem{Designed structured REST APIs (ring state, node/key operations) to interface between the React frontend and Java backend, ensuring strict adherence to REST design principles.}
+          \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Maulana Azad National Institute of Technology (MANIT)}{Bhopal, India}
+      {Bachelor of Technology in Mathematics and Data Science (CGPA: 7.32 / 10)}{2023 -- 2027 (Expected)}
+    \resumeSubheading
+      {Narayana Junior College}{Hyderabad, India}
+      {Class XII (State Board) (Percentage: 91.1\%)}{2021 -- 2023}
+  \resumeSubHeadingListEnd
+
+
+%-----------POSITIONS OF RESPONSIBILITY-----------
+\section{Positions of Responsibility}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Roobaroo Dance Society, MANIT Bhopal}{Bhopal, India}
+      {Core Member}{Aug. 2024 -- Present}
+      \resumeItemListStart
+        \resumeItem{Coordinated logistics and event operations for institute-level cultural festivals with 5,000+ attendees, collaborating in multi-functional teams of 15+ members to manage budgets and schedules.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {National Cadet Corps (NCC)}{MANIT Bhopal, India}
+      {Lance Corporal}{2024 -- Present}
+      \resumeItemListStart
+        \resumeItem{Commanded and trained a platoon of 30+ cadets in drills, physical fitness, and field training, fostering discipline, team coordination, and leadership skills.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+
+%-----------ACHIEVEMENTS & CERTIFICATIONS-----------
+\section{Achievements \& Certifications}
+ \begin{itemize}[leftmargin=0.15in]
+    \small{\item{
+     \textbf{Competitive Programming}{: Solved 250+ Data Structures \& Algorithms problems on LeetCode; 50+ problems on Codeforces (Peak Rating: 1452).} \\
+     \textbf{Machine Learning}{: Supervised Machine Learning: Regression and Classification -- Stanford Online \& DeepLearning.AI.} \\
+     \textbf{Agentic AI}{: Agentic AI: From Learner to Builder -- Become an AI Agent Architect -- IBM SkillsBuild.}
+    }}
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}

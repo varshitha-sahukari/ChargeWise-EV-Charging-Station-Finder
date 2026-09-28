@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sahukari Varshitha - Resume</title>
+  <meta name="description" content="Resume of Sahukari Varshitha - Full-stack developer and Data Science student at MANIT Bhopal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e293b;
+      --secondary: #475569;
+      --accent: #0284c7;
+      --bg: #ffffff;
+      --text: #334155;
+      --border: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: var(--text);
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+
+    .resume-container {
+      max-width: 850px;
+      margin: 0 auto;
+      background-color: var(--bg);
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px var(--shadow), 0 2px 4px -2px var(--shadow);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    .contact-info a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .contact-info a:hover {
+      color: #0369a1;
+      text-decoration: underline;
+    }
+
+    .contact-separator {
+      color: var(--border);
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 4px;
+      margin-top: 25px;
+      margin-bottom: 12px;
+    }
+
+    .summary-text {
+      font-size: 14px;
+      color: var(--text);
+      text-align: justify;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .skill-category {
+      display: flex;
+    }
+
+    .skill-label {
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 180px;
+      flex-shrink: 0;
+    }
+
+    .skill-value {
+      color: var(--text);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    .item-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .item-subtitle {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--secondary);
+    }
+
+    .item-date {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--secondary);
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    li strong {
+      color: var(--primary);
+    }
+
+    .floating-actions {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #0f172a;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background-color: #0369a1;
+    }
+
+    @media print {
+      body {
+        background-color: #fff;
+        padding: 0;
+      }
+
+      .resume-container {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .floating-actions {
+        display: none;
+      }
+
+      .section-title {
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      .item-header {
+        margin-top: 8px;
+      }
+
+      a {
+        text-decoration: none !important;
+        color: var(--primary) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="resume-container">
+    <header>
+      <h1>Sahukari Varshitha</h1>
+      <div class="contact-info">
+        <span>+91 9642919428</span>
+        <span class="contact-separator">|</span>
+        <a href="mailto:svarshitha49@gmail.com">svarshitha49@gmail.com</a>
+        <span class="contact-separator">|</span>
+        <a href="https://linkedin.com/in/sahukari-varshitha" target="_blank">linkedin.com/in/sahukari-varshitha</a>
+        <span class="contact-separator">|</span>
+        <a href="https://github.com/svarshitha49" target="_blank">github.com/svarshitha49</a>
+        <span class="contact-separator">|</span>
+        <a href="https://leetcode.com/u/svarshitha49" target="_blank">leetcode.com/u/svarshitha49</a>
+        <span class="contact-separator">|</span>
+        <a href="https://codeforces.com/profile/svarshitha49" target="_blank">codeforces.com/svarshitha49</a>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-title">Professional Summary</div>
+      <p class="summary-text">
+        Results-driven Software Engineer and Data Science student with a strong foundation in full-stack development, database design, and microservices architecture. Proficient in Java, Python, SQL, and JavaScript, with hands-on experience building and deploying containerized, service-oriented backends. Experienced in designing distributed systems concepts (e.g., consistent hashing) and optimizing database queries. Strong problem-solving abilities backed by 250+ solved challenges on LeetCode and competitive programming experience.
+      </p>
+    </section>
+
+    <section>
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <div class="skill-label">Languages:</div>
+          <div class="skill-value">Java, Python, SQL, C, C++, JavaScript, TypeScript, HTML/CSS</div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-label">Backend Development:</div>
+          <div class="skill-value">Spring Boot, Spring Cloud, RESTful API Design, Microservices Architecture, Node.js, Express.js</div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-label">Databases & Modeling:</div>
+          <div class="skill-value">MySQL, MongoDB, Relational Data Modeling, CRUD Design, Query Optimization, Transaction Management</div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-label">DevOps & Tools:</div>
+          <div class="skill-value">Docker, Git, GitHub, Postman, Maven, VS Code, Linux</div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-label">Frontend:</div>
+          <div class="skill-value">React.js, Vite, Leaflet Maps, State Management</div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-label">Coursework:</div>
+          <div class="skill-value">Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks, Object-Oriented Programming</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Projects</div>
+      
+      <div class="project-item">
+        <div class="item-header">
+          <div class="item-title">ChargeWise – EV Charging Station Finder</div>
+          <div class="item-date">React.js, Spring Boot, MySQL, Leaflet, REST APIs | <a href="https://github.com/svarshitha49/ChargeWise" target="_blank">GitHub</a></div>
+        </div>
+        <ul>
+          <li>Designed a highly optimized relational MySQL schema and implemented 15+ RESTful API endpoints for station search, live availability tracking, and user profile management.</li>
+          <li>Engineered a Spring Boot backend service to handle real-time geospatial search queries, implementing spatial indexing to achieve sub-100ms response times for proximity-based filtering.</li>
+          <li>Integrated Leaflet Maps and custom geo-JSON layers on the React frontend, enabling interactive mapping and real-time visualization of 1,000+ EV charging stations.</li>
+        </ul>
+      </div>
+
+      <div class="project-item">
+        <div class="item-header">
+          <div class="item-title">E-Commerce Microservices Platform</div>
+          <div class="item-date">Spring Boot, Spring Cloud, MySQL, Docker, REST APIs | <a href="https://github.com/svarshitha49/ecommerce-microservices" target="_blank">GitHub</a></div>
+        </div>
+        <ul>
+          <li>Architected a decoupled e-commerce backend utilizing a microservices architecture, partitioning the application into 3 independently deployable services (Catalog, Orders, User Auth) with decentralized databases.</li>
+          <li>Engineered robust inter-service communication protocols using synchronous REST APIs and Netflix Eureka service discovery, improving system resilience and horizontal scalability.</li>
+          <li>Containerized microservices using Docker and Docker Compose, streamlining the local development workflow and reducing configuration/environment errors by 40%.</li>
+        </ul>
+      </div>
+
+      <div class="project-item">
+        <div class="item-header">
+          <div class="item-title">Consistent Hashing Visualizer</div>
+          <div class="item-date">React.js, Vite, Java 17, Spring Boot, REST APIs | <a href="https://github.com/svarshitha49/consistent-hashing-visualizer" target="_blank">GitHub</a></div>
+        </div>
+        <ul>
+          <li>Implemented a consistent hashing ring with virtual nodes in Java 17/Spring Boot to distribute keys uniformly, minimizing data redistribution by 85% during node scaling.</li>
+          <li>Engineered an interactive React.js + Vite dashboard to visualize real-time key-to-node mapping and load-balancing dynamics on the hash ring.</li>
+          <li>Designed structured REST APIs (ring state, node/key operations) to interface between the React frontend and Java backend, ensuring strict adherence to REST design principles.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Education</div>
+      
+      <div class="education-item">
+        <div class="item-header">
+          <div class="item-title">Maulana Azad National Institute of Technology (MANIT), Bhopal</div>
+          <div class="item-date">2023 – 2027 (Expected)</div>
+        </div>
+        <div class="item-subtitle">Bachelor of Technology in Mathematics and Data Science | CGPA: 7.32 / 10</div>
+      </div>
+
+      <div class="education-item" style="margin-top: 6px;">
+        <div class="item-header">
+          <div class="item-title">Narayana Junior College</div>
+          <div class="item-date">2021 – 2023</div>
+        </div>
+        <div class="item-subtitle">Class XII (State Board) | Percentage: 91.1%</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Positions of Responsibility</div>
+      
+      <div class="por-item">
+        <div class="item-header">
+          <div class="item-title">Roobaroo Dance Society, MANIT Bhopal — Core Member</div>
+          <div class="item-date">Aug 2024 – Present</div>
+        </div>
+        <ul>
+          <li>Coordinated logistics and event operations for institute-level cultural festivals with 5,000+ attendees, collaborating in multi-functional teams of 15+ members to manage budgets and schedules.</li>
+        </ul>
+      </div>
+
+      <div class="por-item">
+        <div class="item-header">
+          <div class="item-title">National Cadet Corps (NCC) — Lance Corporal</div>
+          <div class="item-date">2024 – Present</div>
+        </div>
+        <ul>
+          <li>Commanded and trained a platoon of 30+ cadets in drills, physical fitness, and field training, fostering discipline, team coordination, and leadership skills.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Achievements & Certifications</div>
+      <ul style="margin-top: 6px;">
+        <li><strong>Competitive Programming:</strong> Solved 250+ Data Structures & Algorithms problems on LeetCode; 50+ problems on Codeforces (Peak Rating: 1452).</li>
+        <li><strong>Machine Learning:</strong> Supervised Machine Learning: Regression and Classification – Stanford Online & DeepLearning.AI.</li>
+        <li><strong>Agentic AI:</strong> Agentic AI: From Learner to Builder – Become an AI Agent Architect – IBM SkillsBuild.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="floating-actions">
+    <button class="btn" onclick="window.print()">Print Resume</button>
+    <a href="resume.md" class="btn btn-secondary" target="_blank">View Markdown</a>
+  </div>
+
+</body>
+</html>

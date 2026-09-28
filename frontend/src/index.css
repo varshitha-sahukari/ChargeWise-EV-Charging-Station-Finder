@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-900: #064e3b;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-slate-50 text-slate-900 transition-colors duration-300;
+  }
+  
+  body.dark {
+    @apply bg-slate-950 text-slate-50;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+}
+
+/* Glassmorphism Utilities */
+@utility glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+}
+
+@utility glass-dark {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+@utility text-glow-green {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+/* Leaflet Map overrides for dark mode and styling */
+.leaflet-container {
+  font-family: inherit;
+  background-color: #f1f5f9;
+}
+
+.dark .leaflet-container {
+  background-color: #0f172a;
+}
+
+/* Invert map tiles slightly in dark mode for premium dark look */
+.dark .leaflet-tile-container img {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.leaflet-popup-content-wrapper {
+  @apply rounded-xl shadow-lg border border-slate-100 dark:border-slate-800 p-0 overflow-hidden bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: auto !important;
+}
+
+.leaflet-popup-tip {
+  @apply bg-white dark:bg-slate-900;
+}
+
+.leaflet-bar {
+  @apply border-0 shadow-md rounded-lg overflow-hidden bg-white dark:bg-slate-900;
+}
+
+.leaflet-bar a {
+  @apply bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800! hover:bg-slate-50 dark:hover:bg-slate-800! transition-colors;
+}
+
+/* Hide default leaflet attribution to make map layout cleaner */
+.leaflet-control-attribution {
+  display: none !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-800 rounded-full hover:bg-slate-400 dark:hover:bg-slate-700 transition-colors;
+}

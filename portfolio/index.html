@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sahukari Varshitha | Backend & Distributed Systems Engineer</title>
+<meta name="description" content="Portfolio of Sahukari Varshitha, B.Tech student at MANIT Bhopal specializing in Java, Spring Boot, Microservices, and Distributed Systems. Includes an interactive Consistent Hashing Ring visualizer.">
+<meta name="keywords" content="Sahukari Varshitha, Backend Developer, Java, Spring Boot, Microservices, Distributed Systems, MANIT Bhopal, Portfolio">
+<meta name="author" content="Sahukari Varshitha">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sahukari Varshitha | Backend & Distributed Systems Engineer">
+<meta property="og:description" content="Java, Spring Boot, Microservices, and Distributed Systems. Explore my interactive Consistent Hashing Visualizer!">
+<meta property="og:image" content="https://raw.githubusercontent.com/varshitha-sahukari/varshitha-sahukari/main/og-image.png">
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='none' stroke='%233B82F6' stroke-width='8'/%3E%3Ccircle cx='50' cy='16' r='11' fill='%2310B981'/%3E%3Ccircle cx='79' cy='67' r='11' fill='%23F59E0B'/%3E%3C/svg%3E">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-hover: #F1F5F9;
+  --ink: #0F172A;
+  --ink-muted: #475569;
+  --ink-subtle: #64748B;
+  --line: #E2E8F0;
+  --line-strong: #CBD5E1;
+
+  --accent-blue: #2563EB;
+  --accent-blue-hover: #1D4ED8;
+  --accent-blue-light: #EFF6FF;
+  
+  --accent-teal: #059669;
+  --accent-amber: #D97706;
+  --accent-magenta: #DB2777;
+  --accent-violet: #7C3AED;
+  --accent-red: #DC2626;
+
+  --display-font: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --body-font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --code-font: "JetBrains Mono", monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --glow-blue: 0 0 20px rgba(37, 99, 235, 0.15);
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0B0F19;
+  --surface: #111827;
+  --surface-hover: #1F2937;
+  --ink: #F3F4F6;
+  --ink-muted: #9CA3AF;
+  --ink-subtle: #6B7280;
+  --line: #1F2937;
+  --line-strong: #374151;
+
+  --accent-blue: #3B82F6;
+  --accent-blue-hover: #60A5FA;
+  --accent-blue-light: rgba(59, 130, 246, 0.12);
+
+  --accent-teal: #10B981;
+  --accent-amber: #F59E0B;
+  --accent-magenta: #EC4899;
+  --accent-violet: #8B5CF6;
+  --accent-red: #EF4444;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 25px -5px rgb(0 0 0 / 0.5);
+  --glow-blue: 0 0 25px rgba(59, 130, 246, 0.25);
+
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body-font);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; border-radius: 4px; }
+
+/* Scroll progress bar */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-teal), var(--accent-violet));
+  width: 0%;
+  z-index: 100;
+  transition: width 0.1s ease-out;
+}
+
+.wrap {
+  width: min(1180px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+/* Header Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.navbar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 1rem;
+}
+
+.brand {
+  font-family: var(--display-font);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--accent-teal);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-teal);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.nav-links a {
+  color: var(--ink-muted);
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent-blue);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Theme Toggle Button */
+.theme-btn {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--line-strong);
+}
+
+/* Hero Section */
+.hero {
+  padding: clamp(3rem, 7vw, 6rem) 0 clamp(3.5rem, 7vw, 6rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent-blue-light);
+  color: var(--accent-blue);
+  border: 1px solid color-mix(in srgb, var(--accent-blue) 30%, transparent);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  animation: pulse-dot 1.8s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+
+h1 {
+  font-family: var(--display-font);
+  font-weight: 800;
+  font-size: clamp(2.8rem, 6.5vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.25rem;
+}
+
+.role-title {
+  font-family: var(--display-font);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: var(--accent-blue);
+  margin: 0 0 1.25rem;
+}
+
+.hero-lede {
+  font-size: 1.1rem;
+  color: var(--ink-muted);
+  max-width: 34rem;
+  margin: 0 0 2rem;
+}
+
+.cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--ink-muted);
+  transform: translateY(-1px);
+}
+
+.btn.primary {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #FFFFFF;
+}
+
+.btn.primary:hover {
+  background: var(--accent-blue-hover);
+  border-color: var(--accent-blue-hover);
+  box-shadow: var(--glow-blue);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+}
+
+.hero-facts li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hero-facts li svg {
+  color: var(--accent-teal);
+  flex-shrink: 0;
+}
+
+/* Ring Card Component */
+.ring-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  transition: border-color 0.3s ease;
+}
+
+.ring-card:hover {
+  border-color: var(--line-strong);
+}
+
+.ring-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.ring-head h2 {
+  font-family: var(--display-font);
+  font-size: 1.15rem;
+  margin: 0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ring-badge {
+  background: var(--accent-blue-light);
+  color: var(--accent-blue);
+  font-size: 0.75rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+#ring {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 330px;
+  margin-inline: auto;
+  user-select: none;
+}
+
+#ring .track { fill: none; stroke: var(--line); stroke-width: 2.5; }
+#ring .vlabel { font: 700 9px var(--body-font); fill: #FFFFFF; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+#ring .vnode-dot { opacity: 0.85; stroke: var(--bg); stroke-width: 1.5; }
+#ring .key { transform-box: fill-box; transform-origin: center; transition: all 0.35s ease; cursor: pointer; }
+#ring .key.moved { animation: pulseKey 0.9s ease-out; }
+#ring .key.traced { stroke: var(--ink); stroke-width: 2.5; r: 7.5; }
+
+@keyframes pulseKey {
+  0% { transform: scale(2.8); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ring-msg {
+  min-height: 3.4em;
+  font-size: 0.92rem;
+  margin: 0.5rem 0 1rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent-blue);
+  color: var(--ink);
+}
+
+.ring-msg small {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 0.84rem;
+  margin-top: 0.2rem;
+}
+
+/* Key Lookup Bar */
+.ring-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ring-search input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--code-font);
+  font-size: 0.88rem;
+}
+
+.ring-search input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.ring-search .btn {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.servers {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.servers li {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr 3.2rem 1.8rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  background: var(--bg);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+.dot {
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #FFFFFF;
+  font: 700 0.7rem var(--body-font);
+}
+
+.meter {
+  height: 7px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.meter i {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.35s ease;
+}
+
+.servers .count {
+  text-align: right;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.x {
+  border: 0;
+  background: transparent;
+  color: var(--ink-subtle);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  border-radius: 4px;
+  padding: 0.1rem;
+  display: grid;
+  place-items: center;
+  transition: color 0.15s;
+}
+
+.x:hover { color: var(--accent-red); }
+.x:disabled { visibility: hidden; }
+
+.ring-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ring-controls .btn {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+/* Sections */
+section {
+  padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+}
+
+section + section {
+  border-top: 1px solid var(--line);
+}
+
+h2.section-title {
+  font-family: var(--display-font);
+  font-weight: 800;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 2.5rem;
+}
+
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+@media (max-width: 840px) {
+  .split-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+.about-text p {
+  margin: 0 0 1.25rem;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.about-text p.subtle {
+  color: var(--ink-muted);
+}
+
+/* Projects Section */
+.project-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink-muted);
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  border-color: var(--accent-blue);
+}
+
+.project-card {
+  display: grid;
+  grid-template-columns: 1.1fr 2fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--line);
+  transition: opacity 0.3s ease;
+}
+
+.project-card:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@media (max-width: 840px) {
+  .project-card { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+.project-card h3 {
+  font-family: var(--display-font);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.project-kind {
+  color: var(--accent-blue);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 1.25rem;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tech-stack li {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.75rem;
+  font-size: 0.82rem;
+  font-family: var(--code-font);
+  color: var(--ink-muted);
+}
+
+.project-details ul.points {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  color: var(--ink);
+}
+
+.project-details ul.points li {
+  margin-bottom: 0.65rem;
+}
+
+.project-details ul.points li::marker {
+  color: var(--accent-blue);
+}
+
+.project-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.project-links a {
+  color: var(--accent-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.2s;
+}
+
+.project-links a:hover {
+  color: var(--accent-blue-hover);
+  text-decoration: underline;
+}
+
+.project-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin: 0 0 1.25rem;
+  background: var(--bg);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+}
+
+.project-stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-stats b {
+  font-family: var(--display-font);
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--accent-blue);
+}
+
+.project-stats span {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+
+.feature-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--accent-teal);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--accent-teal) 10%, transparent);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 1rem;
+}
+
+/* Skills Grid */
+.skills-group {
+  display: grid;
+  gap: 1rem;
+}
+
+.skill-category {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.skill-category:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@media (max-width: 640px) {
+  .skill-category { grid-template-columns: 1fr; gap: 0.35rem; }
+}
+
+.skill-category dt {
+  font-family: var(--display-font);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  transition: all 0.2s ease;
+}
+
+.chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* Beyond Code / Experience */
+.timeline-item {
+  padding: 0 0 1.75rem;
+  margin: 0 0 1.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline-item:last-child {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline-item h3 {
+  font-family: var(--display-font);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+}
+
+.timeline-meta {
+  color: var(--accent-blue);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 0.6rem;
+}
+
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bullet-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.6rem;
+  color: var(--ink-muted);
+}
+
+.bullet-list li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--accent-blue);
+  font-weight: bold;
+}
+
+/* Contact Section */
+.contact-section {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+
+.contact-box {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(2.5rem, 6vw, 4rem);
+  box-shadow: var(--shadow-lg);
+}
+
+.contact-box h2.section-title {
+  margin-bottom: 1rem;
+}
+
+.contact-text {
+  max-width: 36rem;
+  color: var(--ink-muted);
+  font-size: 1.1rem;
+  margin: 0 0 2rem;
+}
+
+.social-links {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  color: var(--ink-subtle);
+  border-top: 1px solid var(--line);
+}
+
+footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Tooltip Feedback */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  #ring .key.moved { animation: none; }
+  * { transition: none !important; }
+}
+</style>
+
+<!-- JSON-LD Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sahukari Varshitha",
+  "jobTitle": "Backend & Distributed Systems Engineer",
+  "almaMater": "Maulana Azad National Institute of Technology (MANIT), Bhopal",
+  "sameAs": [
+    "https://github.com/varshitha-sahukari",
+    "https://www.linkedin.com/in/varshitha-sahukari-435017288",
+    "https://leetcode.com/u/twWMXfWry2/",
+    "https://codeforces.com/profile/_varshitha11_"
+  ],
+  "knowsAbout": ["Java", "Spring Boot", "Microservices", "Consistent Hashing", "Distributed Systems", "SQL", "Docker"]
+}
+</script>
+</head>
+
+<body>
+<div id="progress-bar" aria-hidden="true"></div>
+
+<!-- NAVIGATION BAR -->
+<header class="navbar">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="brand-dot"></span> Sahukari Varshitha
+    </a>
+    <nav class="nav-links" aria-label="Primary Navigation">
+      <a href="#about">About</a>
+      <a href="#visualizer">Visualizer</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#more">Beyond Code</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-btn" id="theme-toggle" type="button" aria-label="Toggle Light/Dark Theme" title="Toggle theme">
+        <svg id="moon-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="sun-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a class="btn primary" href="mailto:svarshitha49@gmail.com" style="padding: 0.5rem 1rem; font-size: 0.88rem;">Hire Me</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="badge-status">
+          <span class="badge-dot"></span> Available for Software Engineering Roles (2027)
+        </div>
+        <h1>Sahukari Varshitha</h1>
+        <p class="role-title">Backend Developer · Java & Distributed Systems</p>
+        <p class="hero-lede">
+          I build high-throughput REST APIs, scalable microservices, and distributed data pipelines. Final-year B.Tech student at <strong>MANIT Bhopal</strong> with a deep interest in fault tolerance and distributed consensus.
+        </p>
+        <div class="cta-group">
+          <a class="btn primary" href="#projects">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            Explore Projects
+          </a>
+          <a class="btn" href="resume.pdf" download id="download-resume-btn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
+            Resume (PDF)
+          </a>
+          <button class="btn" id="copy-email-btn" type="button">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Copy Email
+          </button>
+        </div>
+        <ul class="hero-facts">
+          <li>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838l-2.727 1.17 1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z"/></svg>
+            B.Tech Math & Data Science (MANIT)
+          </li>
+          <li>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L2.414 11l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L17.586 11l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            400+ DSA Problems Solved
+          </li>
+          <li>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 011.342 1.342l-.8 1.599L18.677 10l.8 3.954a1 1 0 01-.8 1.342l-1.599-.8-1.582 3.954H11v1.323a1 1 0 01-2 0v-1.323H5.046l-1.582-3.954-1.599.8a1 1 0 01-1.342-1.342l.8-1.599L.323 10l1.582-3.954-.8-1.599a1 1 0 011.342-1.342l1.599.8L5.046 2.323H9V2a1 1 0 011-1zm0 5a3 3 0 100 6 3 3 0 000-6z" clip-rule="evenodd"/></svg>
+            Top 10 AI Agents Hackathon 2025
+          </li>
+        </ul>
+      </div>
+
+      <!-- CONSISTENT HASHING RING CARD -->
+      <div id="visualizer" class="ring-card" aria-labelledby="ring-title">
+        <div class="ring-head">
+          <h2 id="ring-title">
+            Consistent Hashing Ring
+            <span class="ring-badge">Interactive Demo</span>
+          </h2>
+          <span style="font-size:0.82rem; color:var(--ink-muted);">Virtual Nodes = 3</span>
+        </div>
+
+        <svg id="ring" viewBox="0 0 400 400" role="img" aria-label="Consistent hashing ring visualization showing nodes and key assignments"></svg>
+
+        <div class="ring-msg" id="ring-msg" role="status" aria-live="polite"></div>
+
+        <!-- Key Tracer Input -->
+        <div class="ring-search">
+          <input type="text" id="key-input" placeholder="Type key name e.g. user_99..." aria-label="Key name to trace">
+          <button class="btn" id="trace-key-btn" type="button">Trace Key</button>
+        </div>
+
+        <!-- Live Server List & Meters -->
+        <ul class="servers" id="servers"></ul>
+
+        <!-- Action Controls -->
+        <div class="ring-controls">
+          <button class="btn" id="add-server" type="button">+ Add Server</button>
+          <button class="btn" id="add-keys" type="button">+ 8 Keys</button>
+          <button class="btn" id="toggle-vnodes" type="button">Toggle Virtual Nodes</button>
+          <button class="btn" id="reset-ring" type="button">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <div class="wrap split-layout">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-text">
+        <p>
+          I am a <strong>Mathematics and Data Science</strong> student at MANIT Bhopal with a strong focus on backend engineering and distributed systems architecture.
+        </p>
+        <p>
+          My daily toolchain includes <strong>Java 17, Spring Boot, PostgreSQL/MySQL, Docker, and RESTful Microservices</strong>. I enjoy understanding system resilience—specifically how data hashing, partition balancing, and database transactions behave as nodes fail or scale up.
+        </p>
+        <p class="subtle">
+          Beyond core engineering, I processed over 500+ Google Cluster Trace logs for federated learning workload prediction, served as Lance Corporal in the National Cadet Corps (NCC), and perform with MANIT's Roobaroo Dance Society.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects">
+    <div class="wrap">
+      <h2 class="section-title">Featured Projects</h2>
+
+      <div class="project-filters">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="backend">Backend & Microservices</button>
+        <button class="filter-btn" data-filter="systems">Distributed Systems</button>
+        <button class="filter-btn" data-filter="ml">ML & Data</button>
+      </div>
+
+      <!-- Project 1: Consistent Hashing Visualizer -->
+      <article class="project-card" data-category="systems">
+        <div>
+          <h3>Consistent Hashing Visualizer</h3>
+          <p class="project-kind">Distributed Systems · Visual Tool</p>
+          <ul class="tech-stack">
+            <li>Java 17</li>
+            <li>Spring Boot</li>
+            <li>React</li>
+            <li>Vite</li>
+            <li>REST APIs</li>
+          </ul>
+        </div>
+        <div class="project-details">
+          <span class="feature-note">⚡ Live Interactive Demo on Top of Page</span>
+          <ul class="points">
+            <li>Implemented a consistent hashing ring with configurable virtual nodes ($V_n$) to eliminate hot spots and achieve uniform load distribution.</li>
+            <li>Built Spring Boot REST endpoints for dynamic node management, key insertion, ring state inspection, and live partition rebalancing stats.</li>
+            <li>Designed a modern frontend showing live key movement, proving that adding/removing servers only reshuffles $K/N$ keys instead of all keys.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/varshitha-sahukari" target="_blank" rel="noopener">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: E-Commerce Microservices -->
+      <article class="project-card" data-category="backend">
+        <div>
+          <h3>E-Commerce Microservices Platform</h3>
+          <p class="project-kind">Backend Architecture · Full Stack</p>
+          <ul class="tech-stack">
+            <li>Spring Boot</li>
+            <li>Spring Cloud</li>
+            <li>Spring Security</li>
+            <li>JWT</li>
+            <li>PostgreSQL</li>
+            <li>Docker</li>
+          </ul>
+        </div>
+        <div class="project-details">
+          <ul class="points">
+            <li>Architected a microservices-based shopping application with decoupled services for User Auth, Product Catalog, Cart, and Order Processing.</li>
+            <li>Secured APIs with JWT authentication & role-based access control (RBAC), enabling fine-grained admin vs customer permission scopes.</li>
+            <li>Persisted domain entities using Spring Data JPA / Hibernate, optimized complex SQL join queries, and containerized each service via Docker Compose.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/varshitha-sahukari/ecommerce-spring-reactjs" target="_blank" rel="noopener">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3: Federated Learning for Cloud Resource Forecasting -->
+      <article class="project-card" data-category="ml">
+        <div>
+          <h3>Federated Learning Cloud Forecasting</h3>
+          <p class="project-kind">Data Engineering · Machine Learning</p>
+          <ul class="tech-stack">
+            <li>Python</li>
+            <li>PyTorch / LSTM</li>
+            <li>ETL Pipeline</li>
+            <li>Aquila Optimization</li>
+          </ul>
+        </div>
+        <div class="project-details">
+          <div class="project-stats" aria-label="Key Performance Indicators">
+            <div><b>50</b><span>Federated Clients</span></div>
+            <div><b>500+</b><span>Cluster Trace Logs</span></div>
+            <div><b>10<sup>−6</sup></b><span>Target MSE Achieved</span></div>
+          </div>
+          <ul class="points">
+            <li>Designed a multi-tiered federated learning algorithm distributed across 50 simulated cloud clients, ensuring data privacy and fault tolerance.</li>
+            <li>Extracted and transformed task-level Google Cluster Trace logs into machine-level time-series datasets via large-scale preprocessing ETL pipelines.</li>
+            <li>Tuned a multi-layer LSTM model paired with Aquila Optimization to achieve 10<sup>−6</sup> Mean Squared Error (MSE) in resource usage prediction.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/varshitha-sahukari/federated-learning-on-cloud-resource-forecast" target="_blank" rel="noopener">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 4: ChargeWise -->
+      <article class="project-card" data-category="backend">
+        <div>
+          <h3>ChargeWise Platform</h3>
+          <p class="project-kind">EV Station Finder & Booking</p>
+          <ul class="tech-stack">
+            <li>React</li>
+            <li>Spring Boot</li>
+            <li>MySQL</li>
+            <li>Leaflet Maps</li>
+            <li>REST APIs</li>
+          </ul>
+        </div>
+        <div class="project-details">
+          <ul class="points">
+            <li>Built an end-to-end platform for locating, filtering, and booking EV charging stations in real-time.</li>
+            <li>Implemented spatial and text search endpoints in Spring Boot backed by indexed MySQL queries for fast geolocation lookups.</li>
+            <li>Integrated interactive Leaflet maps with live status updates and custom pin clusters.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/varshitha-sahukari/ChargeWise-EV-Charging-Station-Finder" target="_blank" rel="noopener">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 5: GalakZ -->
+      <article class="project-card" data-category="systems">
+        <div>
+          <h3>GalakZ Space Shooter</h3>
+          <p class="project-kind">Real-Time Game Engine</p>
+          <ul class="tech-stack">
+            <li>Java 17</li>
+            <li>Java2D / AWT</li>
+            <li>OOP Architecture</li>
+          </ul>
+        </div>
+        <div class="project-details">
+          <ul class="points">
+            <li>Developed a 60 FPS real-time 2D space shooter game engine pure Java with zero external engine dependencies.</li>
+            <li>Engineered custom game loops, AABB bounding-box collision detection, sprite managers, and keyboard input handlers.</li>
+            <li>Demonstrated strict object-oriented design patterns (Factory, Observer, State pattern for player & enemy lifecycle).</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/varshitha-sahukari" target="_blank" rel="noopener">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills">
+    <div class="wrap split-layout">
+      <h2 class="section-title">Technical Skills</h2>
+      <dl class="skills-group">
+        <div class="skill-category">
+          <dt>Languages</dt>
+          <dd class="skill-chips">
+            <span class="chip">Java 17/21</span>
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
+            <span class="chip">C / C++</span>
+            <span class="chip">JavaScript (ES6+)</span>
+          </dd>
+        </div>
+        <div class="skill-category">
+          <dt>Backend & Cloud</dt>
+          <dd class="skill-chips">
+            <span class="chip">Spring Boot</span>
+            <span class="chip">Spring Cloud</span>
+            <span class="chip">Spring Security / JWT</span>
+            <span class="chip">REST APIs</span>
+            <span class="chip">Microservices</span>
+            <span class="chip">Docker</span>
+            <span class="chip">Consistent Hashing</span>
+          </dd>
+        </div>
+        <div class="skill-category">
+          <dt>Databases & Data</dt>
+          <dd class="skill-chips">
+            <span class="chip">MySQL</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">MongoDB</span>
+            <span class="chip">Query Optimization</span>
+            <span class="chip">ETL Pipelines</span>
+            <span class="chip">Feature Engineering</span>
+          </dd>
+        </div>
+        <div class="skill-category">
+          <dt>Computer Science</dt>
+          <dd class="skill-chips">
+            <span class="chip">Data Structures & Algorithms</span>
+            <span class="chip">Operating Systems</span>
+            <span class="chip">Computer Networks</span>
+            <span class="chip">DBMS</span>
+            <span class="chip">OOP & Design Patterns</span>
+          </dd>
+        </div>
+        <div class="skill-category">
+          <dt>Tools & Frontend</dt>
+          <dd class="skill-chips">
+            <span class="chip">Git / GitHub</span>
+            <span class="chip">Postman</span>
+            <span class="chip">Maven</span>
+            <span class="chip">VS Code / IntelliJ</span>
+            <span class="chip">React.js</span>
+            <span class="chip">Vite</span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- BEYOND CODE SECTION -->
+  <section id="more">
+    <div class="wrap split-layout">
+      <h2 class="section-title">Beyond Code</h2>
+      <div>
+        <div class="timeline-item">
+          <h3>Education</h3>
+          <p class="timeline-meta">Maulana Azad National Institute of Technology (MANIT), Bhopal · 2023 – 2027</p>
+          <ul class="bullet-list">
+            <li>B.Tech in Mathematics and Data Science (CGPA: 7.32)</li>
+            <li>Class XII (CBSE): 91.1% | Class X: CGPA 10.0</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Honors & Certifications</h3>
+          <ul class="bullet-list">
+            <li><strong>Top 10 Finalist:</strong> Swafinix AI Agents Hackathon 2025 (Team KLASHMAP)</li>
+            <li><strong>Competitive Coding:</strong> 400+ DSA problems solved across LeetCode & Codeforces</li>
+            <li><strong>Stanford Online & DeepLearning.AI:</strong> Supervised Machine Learning Specialization</li>
+            <li><strong>IBM SkillsBuild:</strong> Agentic AI - From Learner to Builder</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Leadership & Community</h3>
+          <p class="timeline-meta">Lance Corporal · National Cadet Corps (NCC) & Roobaroo Dance Society</p>
+          <ul class="bullet-list">
+            <li>Commanded drills, camps, and institute events as NCC Lance Corporal, fostering discipline and team leadership.</li>
+            <li>Core Coordinator & performer for Roobaroo Dance Society at MANIT annual cultural festivals.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="contact-section">
+    <div class="wrap">
+      <div class="contact-box">
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="contact-text">
+          I'm actively seeking <strong>Software Engineering / Backend Developer</strong> full-time roles and internships starting in 2027. Feel free to reach out via email or connect on social platforms!
+        </p>
+
+        <div class="cta-group">
+          <a class="btn primary" href="mailto:svarshitha49@gmail.com">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            svarshitha49@gmail.com
+          </a>
+          <a class="btn" href="tel:+919642919428">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            +91 96429 19428
+          </a>
+        </div>
+
+        <div class="social-links">
+          <a class="social-btn" href="https://github.com/varshitha-sahukari" target="_blank" rel="noopener">GitHub</a>
+          <a class="social-btn" href="https://www.linkedin.com/in/varshitha-sahukari-435017288" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="social-btn" href="https://leetcode.com/u/twWMXfWry2/" target="_blank" rel="noopener">LeetCode</a>
+          <a class="social-btn" href="https://codeforces.com/profile/_varshitha11_" target="_blank" rel="noopener">Codeforces</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="current-year">2026</span> Sahukari Varshitha. All rights reserved.</div>
+    <div>Built with clean HTML, CSS & JavaScript</div>
+  </div>
+</footer>
+
+<!-- Toast notification element -->
+<div id="toast" class="toast" role="alert">Email copied to clipboard!</div>
+
+<script>
+/* ============================================================
+   Global UI Script & Interactivity
+   ============================================================ */
+
+// 1. Scroll Progress Bar
+window.addEventListener("scroll", () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById("progress-bar").style.width = scrolled + "%";
+});
+
+// 2. Dark / Light Theme Toggle with LocalStorage
+const themeBtn = document.getElementById("theme-toggle");
+const moonIcon = document.getElementById("moon-icon");
+const sunIcon = document.getElementById("sun-icon");
+
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("portfolio-theme", theme);
+  if (theme === "dark") {
+    moonIcon.style.display = "none";
+    sunIcon.style.display = "block";
+  } else {
+    moonIcon.style.display = "block";
+    sunIcon.style.display = "none";
+  }
+}
+
+// Initial theme check
+const savedTheme = localStorage.getItem("portfolio-theme") || 
+  (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+setTheme(savedTheme);
+
+themeBtn.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  setTheme(current === "dark" ? "light" : "dark");
+});
+
+// 3. Copy Email Feedback Toast
+const copyEmailBtn = document.getElementById("copy-email-btn");
+const toast = document.getElementById("toast");
+
+copyEmailBtn.addEventListener("click", () => {
+  navigator.clipboard.writeText("svarshitha49@gmail.com").then(() => {
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  });
+});
+
+document.getElementById("current-year").textContent = new Date().getFullYear();
+
+// 4. Projects Category Filter
+const filterBtns = document.querySelectorAll(".filter-btn");
+const projectCards = document.querySelectorAll(".project-card");
+
+filterBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const cat = btn.dataset.filter;
+
+    projectCards.forEach(card => {
+      if (cat === "all" || card.dataset.category === cat) {
+        card.style.display = "grid";
+        card.style.opacity = "1";
+      } else {
+        card.style.display = "none";
+        card.style.opacity = "0";
+      }
+    });
+  });
+});
+
+/* ============================================================
+   Consistent Hashing Ring Visualizer Engine
+   ============================================================ */
+(function () {
+  const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#EC4899", "#8B5CF6", "#EF4444"];
+  const NAMES  = ["Node-A", "Node-B", "Node-C", "Node-D", "Node-E", "Node-F"];
+  const START_NODES = ["Node-A", "Node-B", "Node-C"];
+  const START_KEYS = 32;
+
+  const svg = document.getElementById("ring");
+  const msg = document.getElementById("ring-msg");
+  const list = document.getElementById("servers");
+  const addServerBtn = document.getElementById("add-server");
+  const addKeysBtn = document.getElementById("add-keys");
+  const resetBtn = document.getElementById("reset-ring");
+  const toggleVnodesBtn = document.getElementById("toggle-vnodes");
+  const keyInput = document.getElementById("key-input");
+  const traceKeyBtn = document.getElementById("trace-key-btn");
+
+  const CX = 200, CY = 200, R = 145, RK = 115;
+  let showVirtualNodes = false;
+  let vnodeCount = 3;
+
+  // 32-bit FNV-1a Hash function
+  function hash(str) {
+    let h = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619) >>> 0;
+    }
+    h ^= h >>> 16; h = Math.imul(h, 2246822507) >>> 0;
+    h ^= h >>> 13; h = Math.imul(h, 3266489909) >>> 0;
+    h ^= h >>> 16;
+    return h >>> 0;
+  }
+
+  const angleOf = s => (hash(s) / 4294967296) * 360;
+  const pt = (deg, r) => {
+    const a = (deg * Math.PI) / 180;
+    return [CX + r * Math.sin(a), CY - r * Math.cos(a)];
+  };
+
+  const colorOf = name => COLORS[NAMES.indexOf(name) % COLORS.length];
+
+  let nodes, keyCount, owners, customKeys = [], tracedKeyIndex = -1;
+
+  function buildRing(nodeList) {
+    const ring = [];
+    nodeList.forEach(n => {
+      for (let i = 0; i < vnodeCount; i++) {
+        ring.push({ node: n, vindex: i, angle: angleOf(n + "#v" + i) });
+      }
+    });
+    return ring.sort((a, b) => a.angle - b.angle);
+  }
+
+  function ownerOf(keyAngle, ring) {
+    for (const v of ring) {
+      if (v.angle >= keyAngle) return v.node;
+    }
+    return ring[0].node;
+  }
+
+  function computeOwners(nodeList, totalKeys) {
+    const ring = buildRing(nodeList);
+    const out = [];
+    for (let i = 0; i < totalKeys; i++) {
+      const keyName = customKeys[i] || ("key-" + i);
+      out.push(ownerOf(angleOf(keyName), ring));
+    }
+    return out;
+  }
+
+  function draw(movedSet) {
+    const ring = buildRing(nodes);
+    let s = '<circle class="track" cx="' + CX + '" cy="' + CY + '" r="' + R + '"/>';
+
+    // Draw Keys
+    for (let i = 0; i < keyCount; i++) {
+      const keyName = customKeys[i] || ("key-" + i);
+      const [x, y] = pt(angleOf(keyName), RK);
+      const isMoved = movedSet && movedSet.has(i);
+      const isTraced = i === tracedKeyIndex;
+      const keyColor = colorOf(owners[i]);
+
+      s += `<circle class="key ${isMoved ? "moved" : ""} ${isTraced ? "traced" : ""}" 
+            cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isTraced ? 7 : 4.5}" 
+            fill="${keyColor}">
+            <title>${keyName} ➔ ${owners[i]} (Angle: ${angleOf(keyName).toFixed(1)}°)</title>
+            </circle>`;
+    }
+
+    // Draw Virtual Nodes if enabled
+    if (showVirtualNodes) {
+      ring.forEach(v => {
+        const [vx, vy] = pt(v.angle, R);
+        s += `<circle class="vnode-dot" cx="${vx.toFixed(1)}" cy="${vy.toFixed(1)}" r="4" fill="${colorOf(v.node)}"><title>Virtual Node ${v.node}#${v.vindex}</title></circle>`;
+      });
+    }
+
+    // Draw Primary Server Nodes
+    nodes.forEach(n => {
+      const primaryAngle = angleOf(n + "#v0");
+      const [x, y] = pt(primaryAngle, R);
+      const shortName = n.replace("Node-", "");
+      s += `<g>
+              <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="${colorOf(n)}" stroke="var(--bg)" stroke-width="2"/>
+              <text class="vlabel" x="${x.toFixed(1)}" y="${y.toFixed(1)}">${shortName}</text>
+            </g>`;
+    });
+
+    // Center Stats Text
+    s += `<text x="200" y="194" text-anchor="middle" style="font:800 28px var(--display-font);fill:var(--ink)">${nodes.length}</text>`;
+    s += `<text x="200" y="216" text-anchor="middle" style="font:600 12px var(--body-font);fill:var(--ink-muted)">${nodes.length === 1 ? "Server" : "Servers"} · ${keyCount} Keys</text>`;
+
+    svg.innerHTML = s;
+
+    // Render Server Meters List
+    list.innerHTML = "";
+    nodes.forEach(n => {
+      const c = owners.filter(o => o === n).length;
+      const pct = ((c / keyCount) * 100).toFixed(0);
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span class="dot" style="background:${colorOf(n)}">${n.replace("Node-", "")}</span>
+        <span class="meter" aria-hidden="true"><i style="width:${pct}%;background:${colorOf(n)}"></i></span>
+        <span class="count">${c} keys (${pct}%)</span>
+        <button class="x" type="button" aria-label="Remove ${n}" ${nodes.length === 1 ? "disabled" : ""}>×</button>
+      `;
+      li.querySelector("button").addEventListener("click", () => removeNode(n));
+      list.appendChild(li);
+    });
+
+    addServerBtn.disabled = nodes.length >= NAMES.length;
+  }
+
+  function setMsg(main, sub) {
+    msg.innerHTML = main + (sub ? "<small>" + sub + "</small>" : "");
+  }
+
+  function addNode() {
+    const name = NAMES.find(n => !nodes.includes(n));
+    if (!name) return;
+    const before = owners.slice();
+    nodes.push(name);
+    owners = computeOwners(nodes, keyCount);
+
+    const moved = new Set();
+    owners.forEach((o, i) => { if (o !== before[i]) moved.add(i); });
+    draw(moved);
+    setMsg(`Added server <strong>${name}</strong>. Minimal rebalance: only <strong>${moved.size} of ${keyCount} keys</strong> moved to ${name}.`,
+      "Consistent hashing prevents massive key migration across the entire cluster.");
+  }
+
+  function removeNode(name) {
+    if (nodes.length <= 1) return;
+    const before = owners.slice();
+    nodes = nodes.filter(n => n !== name);
+    owners = computeOwners(nodes, keyCount);
+
+    const moved = new Set();
+    owners.forEach((o, i) => { if (o !== before[i]) moved.add(i); });
+    draw(moved);
+    setMsg(`Removed server <strong>${name}</strong>. Only its <strong>${moved.size} assigned keys</strong> moved to neighbor nodes.`,
+      "All unaffected server node keys remained on their original host.");
+  }
+
+  function addKeys() {
+    keyCount += 8;
+    owners = computeOwners(nodes, keyCount);
+    draw();
+    setMsg(`Added 8 new keys (Total: ${keyCount}). Keys map to the first node encountered moving clockwise.`);
+  }
+
+  function traceKey() {
+    const val = keyInput.value.trim();
+    if (!val) return;
+    
+    // Check if exists or add
+    let idx = customKeys.indexOf(val);
+    if (idx === -1) {
+      customKeys[keyCount] = val;
+      idx = keyCount;
+      keyCount++;
+    }
+    tracedKeyIndex = idx;
+    owners = computeOwners(nodes, keyCount);
+    draw();
+    
+    const assigned = owners[idx];
+    const angle = angleOf(val).toFixed(1);
+    setMsg(`Traced key <strong>"${val}"</strong> (Hash Angle: ${angle}°).`,
+      `Assigned to server node <strong>${assigned}</strong> clockwise.`);
+  }
+
+  function toggleVnodes() {
+    showVirtualNodes = !showVirtualNodes;
+    toggleVnodesBtn.classList.toggle("primary", showVirtualNodes);
+    draw();
+    setMsg(showVirtualNodes ? "Virtual Nodes Overlay: Enabled (3 per server)." : "Virtual Nodes Overlay: Hidden.");
+  }
+
+  function reset() {
+    nodes = START_NODES.slice();
+    keyCount = START_KEYS;
+    customKeys = [];
+    tracedKeyIndex = -1;
+    showVirtualNodes = false;
+    toggleVnodesBtn.classList.remove("primary");
+    owners = computeOwners(nodes, keyCount);
+    draw();
+    setMsg("Ring initialized. Add or remove server nodes to see consistent hashing key rebalancing in real time!");
+  }
+
+  addServerBtn.addEventListener("click", addNode);
+  addKeysBtn.addEventListener("click", addKeys);
+  toggleVnodesBtn.addEventListener("click", toggleVnodes);
+  resetBtn.addEventListener("click", reset);
+  traceKeyBtn.addEventListener("click", traceKey);
+  keyInput.addEventListener("keydown", e => { if (e.key === "Enter") traceKey(); });
+
+  reset();
+})();
+</script>
+</body>
+</html>
