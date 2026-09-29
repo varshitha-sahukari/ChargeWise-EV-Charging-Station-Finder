@@ -57,12 +57,12 @@ public class DatabaseSeeder implements CommandLineRunner {
         userRepository.save(admin);
 
         User user = User.builder()
-                .username("Rajesh Kumar")
-                .email("rajesh@gmail.com")
+                .username("Varshitha Sahukari")
+                .email("user@chargewise.in")
                 .password(passwordEncoder.encode("user123"))
                 .role("ROLE_USER")
                 .emailVerified(true)
-                .profilePicture("https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh")
+                .profilePicture("https://api.dicebear.com/7.x/avataaars/svg?seed=Varshitha")
                 .build();
         userRepository.save(user);
 
@@ -230,8 +230,8 @@ public class DatabaseSeeder implements CommandLineRunner {
             }
         }
 
-        // Seed 15 Reviews & 15 Charging Histories for Rajesh to view
-        User rajesh = userRepository.findByEmail("rajesh@gmail.com").orElse(null);
+        // Seed 15 Reviews & 15 Charging Histories for User to view
+        User rajesh = userRepository.findByEmail("user@chargewise.in").orElse(null);
         if (rajesh != null && !seededStations.isEmpty()) {
             for (int r = 0; r < 15; r++) {
                 Station s = seededStations.get(rand.nextInt(seededStations.size()));

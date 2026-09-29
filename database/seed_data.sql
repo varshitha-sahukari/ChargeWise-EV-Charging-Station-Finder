@@ -12,7 +12,7 @@ INSERT INTO connector_types (name, description, max_power_kw) VALUES
 -- 2. Insert Default Users (Passwords are encoded BCrypt: admin123, user123)
 INSERT INTO users (email, password, username, role, email_verified, profile_picture, created_at, updated_at) VALUES
 ('admin@chargewise.in', '$2a$10$wE96F9D/l9uO.9t8/wU41us1k2g3271v2y345v678y90ab12cd3ef', 'admin', 'ROLE_ADMIN', TRUE, 'https://api.dicebear.com/7.x/bottts/svg?seed=admin', NOW(), NOW()),
-('rajesh@gmail.com', '$2a$10$xU5pB12v43n5m6o7p8q9rus1k2g3271v2y345v678y90ab12cd3ef', 'Rajesh Kumar', 'ROLE_USER', TRUE, 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh', NOW(), NOW());
+('user@chargewise.in', '$2a$10$xU5pB12v43n5m6o7p8q9rus1k2g3271v2y345v678y90ab12cd3ef', 'Varshitha Sahukari', 'ROLE_USER', TRUE, 'https://api.dicebear.com/7.x/avataaars/svg?seed=Varshitha', NOW(), NOW());
 
 -- 3. Insert Default Vehicles
 INSERT INTO vehicle (brand, model, battery_capacity, max_range, connector_type, user_id) VALUES

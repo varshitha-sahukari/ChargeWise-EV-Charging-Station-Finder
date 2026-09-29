@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       await login({ email, password });
       navigate('/');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid credentials. Try admin@chargewise.in / admin123 or rajesh@gmail.com / user123.');
+      setError(err.response?.data?.message || 'Invalid credentials. Try admin@chargewise.in / admin123 or user@chargewise.in / user123.');
     } finally {
       setLoading(false);
     }
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      await googleLogin('rajesh@gmail.com'); // Mock google token login
+      await googleLogin('user@chargewise.in'); // Mock google token login
       navigate('/');
     } catch (err) {
       setError('Google Sign-In failed.');
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
               <input
                 type="email"
-                placeholder="e.g. rajesh@gmail.com"
+                placeholder="e.g. user@chargewise.in"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -135,7 +135,7 @@ const Login: React.FC = () => {
         <div className="mt-6 pt-4 border-t border-white/5 text-[10px] text-slate-500 text-left space-y-1">
           <p className="font-semibold text-slate-400">Demo Credentials:</p>
           <p>Admin: admin@chargewise.in / admin123</p>
-          <p>User: rajesh@gmail.com / user123</p>
+          <p>User: user@chargewise.in / user123</p>
         </div>
       </div>
     </div>
