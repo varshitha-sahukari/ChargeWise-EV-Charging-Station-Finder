@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://YOUR_SPRING_BOOT_BACKEND_URL/api/$1"
+      "destination": "https://chargewise-ev-charging-station-finder-1.onrender.com/"
     },
     {
       "source": "/(.*)",
