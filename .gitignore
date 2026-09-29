@@ -1,0 +1,10 @@
+# Target & Build directories
+backend/target/
+frontend/dist/
+frontend/node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+*.class
