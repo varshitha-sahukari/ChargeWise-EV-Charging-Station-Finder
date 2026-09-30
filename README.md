@@ -8,7 +8,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Leaflet](https://img.shields.io/badge/Leaflet-GIS_Map-199900?style=for-the-badge&logo=leaflet&logoColor=white)](https://leafletjs.com/)
-
+Deployment link : https://charge-wise-ev-charging-station-fin.vercel.app/routes
 **ChargeWise India** is a modern, production-grade full-stack web application designed to help Electric Vehicle (EV) owners locate, filter, and navigate to EV charging stations across India. It features real-time GIS mapping, AI-driven station recommendations, long-distance trip route planning, telemetry analytics, and roadside SOS emergency assistance.
 
 ---
